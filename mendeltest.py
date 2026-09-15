@@ -1,4 +1,4 @@
-import customtkinter as ctk
+import streamlit as st
 from PIL import Image
 
 # กำหนด Theme และสีพื้นหลัง
