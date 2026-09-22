@@ -65,12 +65,21 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
         st.error(f"❌ ข้อ 5: ผิดจ้า (คุณตอบ '{u_ans5}')")
 
     st.info(f"🏆 ได้คะแนนรวม: {score} คะแนน")
+    if 0 <= score <= 1:
+        st.error("💀 คุณแพ้! (You lose!)")
+        st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
+        st.warning("“มันจบละครับนาย” คุณแทบไม่มีความรู้ด้านพันธุศาสตร์เลย แม้แต่เด็ก ป.6 ก็คงตอบได้เยอะกว่าคุณ คุณควรพัฒนาตนเองนะ")
 
-    if score == 5:
+    elif 2 <= score <= 3:
+        st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
+        st.info("“ของเขาดีจริง” คุณมีความรู้เรื่องนี้พอสมควรเลยหละ ดีมาก")
+
+    elif 4 <= score <= 5:
         st.success("🎉 You win!")
-    else:
-        st.error("💀 You lose!")
-
+        st.balloons() 
+        st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
+        st.success("“เวรี่กู๊ดด” คุณเก่งเรื่องพันธุศาสตร์มาก")
+        
 st.button("🎮 เริ่มเล่นเกม", on_click=reset_game)
 
 timer_placeholder = st.empty()
