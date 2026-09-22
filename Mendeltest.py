@@ -130,6 +130,3 @@ elif "start" in st.session_state:
     else:
         st.session_state.is_ended = True
         st.rerun()
-
-if st.session_state.get("is_ended", False):
-    show_result_dialog(ans1, ans2, ans3, ans4, ans5)
