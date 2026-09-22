@@ -46,7 +46,7 @@ def show_result_dialog(ans1, ans2, ans3, ans4):
     else:
         st.error(f"❌ ข้อ 2: ผิดจ้า (คุณตอบ '{u_ans2}')")
 
-    if u_ans3 == "dog":
+    if u_ans3 == "เอนไซม์ตัดจำเพาะ":
         st.success("✅ ข้อ 3: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
