@@ -14,6 +14,7 @@ if "ans4_val" not in st.session_state:
 if "ans5_val" not in st.session_state:
     st.session_state.ans5_val = ""
 
+
 def reset_game():
     st.session_state.ans1_val = ""
     st.session_state.ans2_val = ""
@@ -23,9 +24,9 @@ def reset_game():
     st.session_state.start = time.time()
     st.session_state.is_ended = False
 
+
 @st.dialog("📊 สรุปผลการเล่นเกม")
 def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
-    st.balloons()
     score = 0
 
     u_ans1 = ans1.strip().lower()
@@ -34,13 +35,13 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
     u_ans4 = ans4.strip().lower()
     u_ans5 = ans5.strip().lower()
 
-    if u_ans1 == "25%" or "25":
+    if u_ans1 in ["25%", "25"]:
         st.success("✅ ข้อ 1: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
         st.error(f"❌ ข้อ 1: ผิดจ้า (คุณตอบ '{u_ans1}')")
 
-    if u_ans2 == "50%" or "50":
+    if u_ans2 in ["50%", "50"]:
         st.success("✅ ข้อ 2: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
@@ -52,32 +53,34 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
     else:
         st.error(f"❌ ข้อ 3: ผิดจ้า (คุณตอบ '{u_ans3}')")
 
-    if u_ans4 == "Incomplete dominant" or "incomplete dominant":
+    if u_ans4 == "incomplete dominance":
         st.success("✅ ข้อ 4: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
         st.error(f"❌ ข้อ 4: ผิดจ้า (คุณตอบ '{u_ans4}')")
 
-    if u_ans4 == "0%" or "0":
+    if u_ans5 in ["0%", "0"]:
         st.success("✅ ข้อ 5: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
         st.error(f"❌ ข้อ 5: ผิดจ้า (คุณตอบ '{u_ans5}')")
 
     st.info(f"🏆 ได้คะแนนรวม: {score} คะแนน")
+
     if 0 <= score <= 1:
         st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
-        st.warning("“💀มันจบละครับนาย” คุณแทบไม่มีความรู้ด้านพันธุศาสตร์เลย แม้แต่เด็ก ป.6 ก็คงตอบได้เยอะกว่าคุณ คุณควรพัฒนาตนเองนะ")
-
+        st.warning(
+            "“💀มันจบละครับนาย” คุณแทบไม่มีความรู้ด้านพันธุศาสตร์เลย แม้แต่เด็ก ป.6 ก็คงตอบได้เยอะกว่าคุณ คุณควรพัฒนาตนเองนะ"
+        )
     elif 2 <= score <= 3:
         st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
-        st.info("“ของเขาดีจริง” คุณมีความรู้เรื่องนี้พอสมควรเลยหละ ดีมาก")
-
+        st.info("“โหดด ของเขาดีจริง” คุณมีความรู้เรื่องนี้พอสมควรเลยหละ ดีมาก")
     elif 4 <= score <= 5:
-        st.balloons() 
+        st.balloons()
         st.write(f"**คะแนนที่คุณได้:** {score} / 5 คะแนน")
         st.success("“🎉เวรี่กู๊ดด” คุณเก่งเรื่องพันธุศาสตร์มาก")
-        
+
+
 st.button("🎮 เริ่มเล่นเกม", on_click=reset_game)
 
 timer_placeholder = st.empty()
@@ -114,7 +117,11 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
         st.session_state.is_ended = True
         st.rerun()
 
-if "start" in st.session_state and not st.session_state.get("is_ended", False):
+# ตรวจสอบว่าจบเกมหรือยัง หากจบแล้วแสดง Dialog สรุปผล
+if st.session_state.get("is_ended", False):
+    show_result_dialog(ans1, ans2, ans3, ans4, ans5)
+
+elif "start" in st.session_state:
     time_left = int(90 - (time.time() - st.session_state.start))
     if time_left > 0:
         timer_placeholder.error(f"⏳ เหลือเวลา: {time_left} วินาที")
