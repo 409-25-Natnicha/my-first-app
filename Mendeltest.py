@@ -24,7 +24,7 @@ def reset_game():
     st.session_state.is_ended = False
 
 @st.dialog("📊 สรุปผลการเล่นเกม")
-def show_result_dialog(ans1, ans2, ans3, ans4):
+def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
     st.balloons()
     score = 0
 
@@ -102,19 +102,13 @@ ans5 = st.text_input(
     value=st.session_state.ans5_val,
 )
 
-st.session_state.ans1_val = ans1
-st.session_state.ans2_val = ans2
-st.session_state.ans3_val = ans3
-st.session_state.ans4_val = ans4
-st.session_state.ans4_val = ans5
-
 if "start" in st.session_state and not st.session_state.get("is_ended", False):
     if st.button("📥 ส่งคำตอบ"):
         st.session_state.is_ended = True
         st.rerun()
 
 if "start" in st.session_state and not st.session_state.get("is_ended", False):
-    time_left = int(30 - (time.time() - st.session_state.start))
+    time_left = int(90 - (time.time() - st.session_state.start))
     if time_left > 0:
         timer_placeholder.error(f"⏳ เหลือเวลา: {time_left} วินาที")
         time.sleep(1)
@@ -122,3 +116,6 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
     else:
         st.session_state.is_ended = True
         st.rerun()
+
+if st.session_state.get("is_ended", False):
+    show_result_dialog(ans1, ans2, ans3, ans4, ans5)
