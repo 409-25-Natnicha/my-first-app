@@ -52,7 +52,7 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
     else:
         st.error(f"❌ ข้อ 3: ผิดจ้า (คุณตอบ '{u_ans3}')")
 
-    if u_ans4 == "Incomplete dominant":
+    if u_ans4 == "Incomplete dominant" or "incomplete dominant":
         st.success("✅ ข้อ 4: ถูกต้อง เก่งมากจ้า")
         score += 1
     else:
